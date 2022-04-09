@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('calculator/', calculator),
     path('lotto/', lotto, name='lotto'),
-    path('lotto/lottoresult/', lottoresult, name='lottoresult'),
+    path('lottoresult/', lottoresult, name='lottoresult'),
 ]
