@@ -22,7 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-m+$+)=_@s%f)ne3hy@c!rxvcbbqgx%3$ap5-7or2rc0$ka(!xn'
 secret_file = os.path.join(BASE_DIR, 'secrets.json') #secrets.json을 불러와 줍니다.
 
 with open(secret_file, 'r') as f: #open as로 secret.json을 열어줍니다.
