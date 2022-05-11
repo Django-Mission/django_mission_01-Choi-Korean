@@ -1,0 +1,18 @@
+{% extends 'base.html' %}  <!-- base.html을 상속 받곘다는 태그-->
+
+{% block title %} 인덱스 {% endblock %}
+
+
+{% block content %} <!-- 상위 html에서 지정한 block 명과 똑같이 해주고 그 아래에 들어가야 할 html 코드 입력-->
+<h1> Post 목록화면 </h1>
+{% for post in post_list %}
+    <div>   <!-- 문단 나누기-->
+        {{ post.id }}<br/>  <!-- 줄바꿈-->
+        {{ post.image }}<br/>
+        {{ post.content }}<br/>
+        {{ post.created_at }}<br/>
+        {{ post.writer }}<br/>
+
+    </div>
+{% endfor %}
+{% endblock %}

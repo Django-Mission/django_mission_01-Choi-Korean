@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+{% block title %} 인덱스 {% endblock %}
+{% block content %} 
+<h1> Post 입력 </h1>
+<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %} 
+    <div>
+        {{ form.as_p }}     <!-- 현재 이미지 필드나 제목 필드 입력 등 아무런 코드 없음 -->
+        <!-- {{ form.as_ul }}     ul 형태로 출력 -->
+        <!-- {% for field in form %}        for문으로 label 및 field 출력
+            <label for="{{ field.id_for_label }}">{{ field.html_name }}</label>
+            {{ field }}
+        {% endfor %} -->
+        <input type="submit">
+    </div>
+
+</form>
+{% endblock %}
