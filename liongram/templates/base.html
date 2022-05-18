@@ -1,23 +1,27 @@
-{% load static %}
+{% load static %}   <!-- settings에서 stastic 설정해주고, 이거 해줘야지 아래에서 static file 로드 가능-->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <meta charset="UTF-8"><!-- static file은 서비스 제공자(임직원) 등이 올리는 거(영상 사진 등), media는 사용자들이 올린거-->
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}"> <!-- css는 다른 html에서도 써야하기에, base에서 넣어주는 거래. 다 base 기반으로 되는건가?
+    그리고 다른 page에서 extends 'base.html'  로 상속받으면 됨. 문구 제대로 쓰면 오류나서 일단 저렇게 씀-->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}"> 
     <title>{% block title %}{% endblock %} | 라이언그램</title>
 </head>
 <body class="container">
     <div>
-        {% block content %}
+        {% block content %} <!-- 이걸 설정해주면, 다른 하위 html에서도 똑같이 block 설정해줘서 block 안에 넣을거 넣으면 됨-->
         {% endblock %}
     </div>
     <div>
         <nav>
+            <!-- 아래는 메뉴(홈, 검색) 등인데, 메뉴같이 전체 페이지에 다 들어가는건 base에 담는거래-->
             <ul class="bottom-menu-group">
                 <li>
                     <a href="{% url 'index' %}">
-                        <img src="{% static 'icons/home_outlined_black_36dp.svg' %}" alt="홈">
+                        <img src="{% static 'icons/home_outlined_black_36dp.svg' %}" alt="홈">  <!-- 글자를 저장된 image로 바꿔준 것. static folder가 지금 liongram/static으로 되어
+                        있으니까 그다음 icons 경로부터 시작. 이미지 load 안되거나, 오디오듣기?뭐 이런기능일때는 저 alt에 들어간 내용이 나온대-->
+                        <!-- 그리고 같은 이미지가 black, white 버젼 있는데, 클릭되면 바뀌게 -->
                     </a>
                 </li>
                 <li>

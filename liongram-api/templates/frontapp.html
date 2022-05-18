@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front App</title>
+</head>
+<body>
+    <h1>프론트 엔드 영역</h1>
+    <button onclick="getPost()">Post 불러오기!</button>
+    <ul id="ul">
+        <li>불러오기 전</li>
+    </ul>
+<!-- java script 코드. 위 버튼 누르면 server에 get요청 날려서 데이터 가져오는 역할. 기존의 li 지우고 받은 데이터만큼 반복해서 데이터 생성하는 역할-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function getPost(){
+            axios({
+                url: 'http://localhost:8000/posts/',
+                method: 'GET',
+            })
+            .then(function (res) {
+                ul = document.getElementById("ul")
+                li = document.querySelectorAll("li")
+
+                if(li.length > 0){
+                    li.forEach(e => {
+                        e.remove();
+                    })
+                }
+
+                res.data.forEach(e => {
+                    let createLi = document.createElement("li");
+                    let item = document.createTextNode(JSON.stringify(e));
+                    createLi.appendChild(item)
+                    ul.appendChild(createLi)
+                });
+            });
+        }
+    </script>
+    
+</body>
+</html>
