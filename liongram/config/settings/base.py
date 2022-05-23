@@ -11,51 +11,50 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import os, json #json을 읽어오기 위해 json을 추가해 줍니다.
+import os, json
+import secrets #json을 읽어오기 위해 json을 추가해 줍니다.
 from django.core.exceptions import ImproperlyConfigured #예외 처리를 위해 불러와줍니다.
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-secret_file = os.path.join(BASE_DIR, 'secrets.json') #secrets.json을 불러와 줍니다.
+secret_file = BASE_DIR / 'secrets.json' # sercret key 담긴 파일
+with open(secret_file) as file:     # 파일 열어서 내용 secrets에 담고
+    secrets = json.loads(file.read())
 
-with open(secret_file, 'r') as f: #open as로 secret.json을 열어줍니다.
-    secrets = json.loads(f.read())
-
-def get_secret(setting, secrets=secrets): #예외 처리를 통해 오류 발생을 검출합니다.
+def get_secret(setting, secrets_dict=secrets):  # secret key 가져오는 함수
     try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = "Set the {} environment variable".format(setting)
+        return secrets_dict[setting]    # key가 있다면 그대로 secret key value값 return
+    except KeyError:    # 없다면 keyerror exception 처리해서 error msg raise
+        error_msg = f'Set the {setting} environment variable'
         raise ImproperlyConfigured(error_msg)
 
-SECRET_KEY = get_secret("SECRET_KEY")
+SECRET_KEY = get_secret('SECRET_KEY')
 
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
-
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+PROJECT_APPS = [
     'posts',
-    'debug_toolbar',
     'users',
 ]
+
+THIRD_PARTY_APPS = [
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,7 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -89,15 +88,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
@@ -136,9 +127,6 @@ USE_TZ = True
 
 STATIC_ROOT = ''
 STATIC_URL = 'static/'  # static은 service 제공자(회사)에서 upload
-STATICFILES_DIRS = [    # static file이 어떤 폴더에 들어가있느냐 정의하는 것. BASE_DIR은 현재 열린 폴더(LIONGRAM)
-    BASE_DIR / 'static'
-]
 
 MEDIA_URL = 'media/'  # media는 사용자가 upload
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -148,10 +136,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-INTERNAL_IPS = [
-    # ...
-    "127.0.0.1",
-    # ...
-]
+# INTERNAL_IPS = [
+#     # ...
+#     "127.0.0.1",
+#     # ...
+# ]
 
 AUTH_USER_MODEL = 'users.User'

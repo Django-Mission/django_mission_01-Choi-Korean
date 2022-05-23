@@ -5,9 +5,10 @@
 
 {% block content %}
 <main>
-    <div class="card-list">
+    <div class="card-list"> <!-- 게시글이 늘어날수록 card형태의 게시글이 늘어날 것. 그래서 따로 html 만들어줘서 분리. 
+        또 글에 대한 상세페이지도 이 card 하나 보는 거랑 같으니 분리했음. 재사용성 업. 중복을 최대한 줄이는게 django 철학이래-->
         {% for post in post_list %}
-            {% include 'mixin/posts/post_card.html' with detail=False %}
+            {% include 'mixin/posts/post_card.html' with detail=False %}    <!-- templage tag include-->
         {% endfor %}
     </div>
 </main>

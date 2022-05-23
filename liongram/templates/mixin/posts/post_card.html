@@ -15,7 +15,7 @@
             {% if post.image %}
                 <img class="card__image" src="{{ post.image.url }}" alt="">
             {% else %}
-                <img class="card__image" src="http://via.placeholder.com/600x600" alt="">
+                <img class="card__image" src="http://via.placeholder.com/600x600" alt="">   <!-- 중요 : src의 주소 : 이미지가 없을때 공백 이미지 제공해주는 서비스-->
             {% endif %}
         </div>
         <div class="card__btn-group">
